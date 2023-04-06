@@ -1,4 +1,4 @@
-package com.example.ruler_app
+package com.thpir.ruler_app
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine

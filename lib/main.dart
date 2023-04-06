@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import './theme/color_schemes.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized(); // add this line
   SystemChrome.setPreferredOrientations(
@@ -18,10 +20,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Ruler',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      /*theme: ThemeData(
+        primarySwatch: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      ),*/
+      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
+      darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       home: const MyHomePage(title: 'Ruler'),
     );
   }
