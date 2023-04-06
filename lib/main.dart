@@ -74,24 +74,34 @@ class _MyHomePageState extends State<MyHomePage> {
         _dpi; // dpi = ackquired by android code if not returned we use 160 with devicePixelRatio = 1
     double pixelCountInMm =
         dpiFixed / pixelRatio / 25.4; // = How many logical pixels in 1 mm
-    double height = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     double paddingTop = MediaQuery.of(context).padding.top;
     double paddingBottom = MediaQuery.of(context).padding.bottom;
     double appBarHeight = AppBar().preferredSize.height;
     int numberOfRulerPins =
-        ((height - appBarHeight - paddingBottom - paddingTop) / pixelRatio)
+        ((height - appBarHeight - paddingBottom - paddingTop) / pixelCountInMm)
             .floor();
+
+    double rulerPinWidth(int index) {
+      if (index < 9) {
+        return 0;
+      } else if ((index + 1) % 10 == 0) {
+        return pixelCountInMm * 10;
+      } else {
+        return pixelCountInMm * 5;
+      }
+    }
 
     List<Container> rulerPin(int count) {
       return List.generate(count, (index) {
         return Container(
           height: pixelCountInMm,
-          width: (index + 1) % 10 == 0
-              ? (10 * pixelCountInMm)
-              : (5 * pixelCountInMm),
+          width: rulerPinWidth(index),
           decoration: const BoxDecoration(
-              border:
-                  Border(bottom: BorderSide(width: 1, color: Colors.black))),
+            border: Border(
+              bottom: BorderSide(width: 1, color: Colors.black),
+            ),
+          ),
         );
       }).toList();
     }
@@ -99,28 +109,57 @@ class _MyHomePageState extends State<MyHomePage> {
     List<SizedBox> rulerDigits(int count) {
       return List.generate(count, (index) {
         return SizedBox(
-          height: index == 0 ? pixelCountInMm * 8 : pixelCountInMm * 10,
-          child: index == 0 ? null : Text((index).toString(), style: const TextStyle(fontSize: 20),),
+          height: index == 0 ? pixelCountInMm * 12 : pixelCountInMm * 10,
+          child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                (index + 1).toString(),
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+              )),
         );
       }).toList();
     }
 
     return Scaffold(
         appBar: AppBar(elevation: 0, title: const Text('Ruler')),
-        body: Container(
-          padding: EdgeInsets.zero,
-          child: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: rulerPin(numberOfRulerPins),
+        body: Stack(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.zero,
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: rulerPin(numberOfRulerPins),
+                  ),
+                  const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+                  Column(
+                    children: rulerDigits((numberOfRulerPins / 10).floor()),
+                  ),
+                ],
               ),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-              Column( 
-                children: rulerDigits((numberOfRulerPins/10).ceil()),
+            ),
+            Container(
+              width: 3 * pixelCountInMm,
+              height: 3 * pixelCountInMm,
+              decoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                    style: BorderStyle.solid
+                  ),
+                  left: BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                    style: BorderStyle.solid
+                  ),
+                )
               ),
-            ],
-          ),
+            )
+          ]
         ));
   }
 }
