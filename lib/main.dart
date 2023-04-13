@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:system_theme/system_theme.dart';
 
 import './theme/color_schemes.dart';
+import './widgets/vertical_ruler.dart';
+import './widgets/horizontal_ruler.dart';
+import './widgets/sliders.dart';
+import './widgets/ruler_origin.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized(); // add this line
@@ -85,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
     double paddingTop = MediaQuery.of(context).padding.top;
     double paddingBottom = MediaQuery.of(context).padding.bottom;
     double appBarHeight = AppBar().preferredSize.height;
-    int numberOfRulerPins =
+    int numberOfVerticalRulerPins =
         ((height - appBarHeight - paddingBottom - paddingTop) / pixelCountInMm)
             .floor();
 
@@ -96,130 +99,29 @@ class _MyHomePageState extends State<MyHomePage> {
     int numberOfHorizontalRulerPins =
         ((width - paddingLeft - paddingRight) / pixelCountInMm).floor();
 
-    double rulerPinWidth(int index) {
-      if (index < 9) {
-        return 0;
-      } else if ((index + 1) % 10 == 0) {
-        return pixelCountInMm * 6;
-      } else {
-        return pixelCountInMm * 3;
-      }
-    }
-
-    List<Container> horizontalRulerPin(int count) {
-      return List.generate(count, (index) {
-        return Container(
-          width: pixelCountInMm,
-          height: rulerPinWidth(index),
-          decoration: BoxDecoration(
-            border: Border(
-              right: BorderSide(
-                width: 1,
-                color: SystemTheme.isDarkMode ? Colors.white : Colors.black,
-              ),
-            ),
-          ),
-        );
-      }).toList();
-    }
-
-    List<Container> rulerPin(int count) {
-      return List.generate(count, (index) {
-        return Container(
-          height: pixelCountInMm,
-          width: rulerPinWidth(index),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                width: 1,
-                color: SystemTheme.isDarkMode ? Colors.white : Colors.black,
-              ),
-            ),
-          ),
-        );
-      }).toList();
-    }
-
-    List<SizedBox> rulerDigits(int count) {
-      return List.generate(count, (index) {
-        return SizedBox(
-          height: index == 0 ? pixelCountInMm * 12 : pixelCountInMm * 10,
-          child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                index > 0 ? (index + 1).toString() : '',
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
-              )),
-        );
-      }).toList();
-    }
-
-    List<SizedBox> horizontalRulerDigits(int count) {
-      return List.generate(count, (index) {
-        return SizedBox(
-          width: index == 0 ? pixelCountInMm * 11 : pixelCountInMm * 10,
-          child: Align(
-              alignment: Alignment.bottomRight,
-              child: Text(
-                (index + 1).toString(),
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
-              )),
-        );
-      }).toList();
-    }
-
     return Scaffold(
         appBar: AppBar(elevation: 0, title: const Text('Ruler')),
         body: Stack(children: <Widget>[
-          Container(
-            padding: EdgeInsets.zero,
-            child: Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: rulerPin(numberOfRulerPins),
-                ),
-                const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-                Column(
-                  children: rulerDigits((numberOfRulerPins / 10).floor()),
-                ),
-              ],
-            ),
+          VerticalRuler(
+            numberOfVerticalRulerPins: numberOfVerticalRulerPins,
+            pixelCountInMm: pixelCountInMm,
           ),
-          Container(
-            padding: EdgeInsets.zero,
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: horizontalRulerPin(numberOfHorizontalRulerPins),
-                ),
-                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                Row(
-                  children: horizontalRulerDigits((numberOfHorizontalRulerPins / 10).floor()),
-                ),
-              ],
-            ),
+          HorizontalRuler(
+            numberOfHorizontalRulerPins: numberOfHorizontalRulerPins,
+            pixelCountInMm: pixelCountInMm,
           ),
-          Container(
-            width: 3 * pixelCountInMm,
-            height: 3 * pixelCountInMm,
-            decoration: BoxDecoration(
-                border: Border(
-              top: BorderSide(
-                  color: SystemTheme.isDarkMode ? Colors.white : Colors.black,
-                  width: 1,
-                  style: BorderStyle.solid),
-              left: BorderSide(
-                  color: SystemTheme.isDarkMode ? Colors.white : Colors.black,
-                  width: 1,
-                  style: BorderStyle.solid),
-            )),
+          RulerOrigin(pixelCountInMm: pixelCountInMm),
+          Sliders(
+            sliderHeight: height - appBarHeight - paddingBottom - paddingTop, 
+            sliderWidth:  width - paddingLeft - paddingRight, 
+            pixelCountInMm: pixelCountInMm, 
+            width: width - paddingLeft - paddingRight, 
+            height: height - appBarHeight - paddingBottom - paddingTop
           )
-        ]));
+          //VerticalSlider(sliderWidth: width - paddingLeft - paddingRight, pixelCountInMm: pixelCountInMm, height: height - appBarHeight - paddingBottom - paddingTop)
+        ]
+      )
+    );
   }
 }
+
