@@ -2,12 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import './theme/color_schemes.dart';
 import './widgets/vertical_ruler.dart';
 import './widgets/horizontal_ruler.dart';
 import './widgets/sliders.dart';
 import './widgets/ruler_origin.dart';
+import './widgets/custom_drawer.dart';
+import './providers/ui_theme_provider.dart';
+import './shared_prefs/ui_theme_preference.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized(); // add this line
@@ -16,21 +20,65 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  UiThemeProvider uiThemeProvider = UiThemeProvider();
+  String uiMode = 'ui';
+
+  @override
+  void initState() {
+    super.initState();
+    getUiTheme().then((value) {
+      setState(() {
+        uiMode = value.toString();
+      });
+    });
+  }
+
+  void getCurrentUiTheme() async {
+    uiThemeProvider.uiMode =
+        await uiThemeProvider.uiThemePreference.getUiTheme();
+  }
+
+  Future<String> getUiTheme() async {
+    UiThemePreference uiThemePreferene = UiThemePreference();
+    return uiThemePreferene.getUiTheme();
+  }
+
+  ThemeData themeProvider(String value) {
+    switch (value) {
+      case 'dark':
+        {
+          return ThemeData(useMaterial3: true, colorScheme: darkColorScheme);
+        }
+      default:
+        {
+          return ThemeData(useMaterial3: true, colorScheme: lightColorScheme);
+        }
+    }
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Ruler',
-      /*theme: ThemeData(
-        primarySwatch: Colors.amber,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),*/
-      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
-      darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-      home: const MyHomePage(title: 'Ruler'),
+    return ChangeNotifierProvider(
+      create: (_) => UiThemeProvider(),
+      child: Consumer<UiThemeProvider>(
+        builder: ((context, uiMode, _) => MaterialApp(
+          title: 'Ruler',
+          theme: themeProvider(uiMode.uiMode),
+          darkTheme: uiMode.uiMode == 'ui'
+              ? ThemeData(useMaterial3: true, colorScheme: darkColorScheme)
+              : null,
+          home: const MyHomePage(title: 'Ruler'),
+        )
+      )),
     );
   }
 }
@@ -100,28 +148,25 @@ class _MyHomePageState extends State<MyHomePage> {
         ((width - paddingLeft - paddingRight) / pixelCountInMm).floor();
 
     return Scaffold(
-        appBar: AppBar(elevation: 0, title: const Text('Ruler')),
-        body: Stack(children: <Widget>[
-          VerticalRuler(
-            numberOfVerticalRulerPins: numberOfVerticalRulerPins,
+      appBar: AppBar(elevation: 0, title: const Text('Ruler')),
+      body: Stack(children: <Widget>[
+        VerticalRuler(
+          numberOfVerticalRulerPins: numberOfVerticalRulerPins,
+          pixelCountInMm: pixelCountInMm,
+        ),
+        HorizontalRuler(
+          numberOfHorizontalRulerPins: numberOfHorizontalRulerPins,
+          pixelCountInMm: pixelCountInMm,
+        ),
+        RulerOrigin(pixelCountInMm: pixelCountInMm),
+        Sliders(
+            sliderHeight: height - appBarHeight - paddingBottom - paddingTop,
+            sliderWidth: width - paddingLeft - paddingRight,
             pixelCountInMm: pixelCountInMm,
-          ),
-          HorizontalRuler(
-            numberOfHorizontalRulerPins: numberOfHorizontalRulerPins,
-            pixelCountInMm: pixelCountInMm,
-          ),
-          RulerOrigin(pixelCountInMm: pixelCountInMm),
-          Sliders(
-            sliderHeight: height - appBarHeight - paddingBottom - paddingTop, 
-            sliderWidth:  width - paddingLeft - paddingRight, 
-            pixelCountInMm: pixelCountInMm, 
-            width: width - paddingLeft - paddingRight, 
-            height: height - appBarHeight - paddingBottom - paddingTop
-          )
-          //VerticalSlider(sliderWidth: width - paddingLeft - paddingRight, pixelCountInMm: pixelCountInMm, height: height - appBarHeight - paddingBottom - paddingTop)
-        ]
-      )
+            width: width - paddingLeft - paddingRight,
+            height: height - appBarHeight - paddingBottom - paddingTop)
+      ]),
+      drawer: const CustomDrawer(),
     );
   }
 }
-
