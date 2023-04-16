@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:system_theme/system_theme.dart';
 
 class RulerOrigin extends StatelessWidget {
   const RulerOrigin({
@@ -17,11 +16,11 @@ class RulerOrigin extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border(
         top: BorderSide(
-            color: SystemTheme.isDarkMode ? Colors.white : Colors.black,
+            color: Theme.of(context).colorScheme.onSurface,
             width: 1,
             style: BorderStyle.solid),
         left: BorderSide(
-            color: SystemTheme.isDarkMode ? Colors.white : Colors.black,
+            color: Theme.of(context).colorScheme.onSurface,
             width: 1,
             style: BorderStyle.solid),
       )),

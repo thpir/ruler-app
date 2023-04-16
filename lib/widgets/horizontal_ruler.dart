@@ -1,4 +1,3 @@
-import 'package:system_theme/system_theme.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalRuler extends StatelessWidget {
@@ -38,7 +37,7 @@ class HorizontalRuler extends StatelessWidget {
             border: Border(
               right: BorderSide(
                 width: 1,
-                color: SystemTheme.isDarkMode ? Colors.white : Colors.black,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ),

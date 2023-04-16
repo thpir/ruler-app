@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:system_theme/system_theme.dart';
 
 class Sliders extends StatefulWidget {
   final double sliderHeight;
@@ -111,17 +110,17 @@ class _CustomSliderState extends State<CustomSlider> {
                 border: Border(
                   left: BorderSide(
                     width: 1,
-                    color: SystemTheme.isDarkMode ? Colors.white : Colors.black,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
               ),
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: SystemTheme.isDarkMode ? Colors.white : Colors.black,
+                  color: Theme.of(context).colorScheme.onSurface,
                   border: Border.all(
                     width: 1,
-                    color: SystemTheme.isDarkMode ? Colors.white : Colors.black,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(5),
@@ -136,9 +135,7 @@ class _CustomSliderState extends State<CustomSlider> {
                       '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(0)} mm',
                       style: TextStyle(
                         fontSize: 20,
-                        color: SystemTheme.isDarkMode
-                            ? Colors.black
-                            : Colors.white,
+                        color: Theme.of(context).colorScheme.surface,
                       ),
                     ),
                   ),
@@ -163,17 +160,17 @@ class _CustomSliderState extends State<CustomSlider> {
                 border: Border(
                   top: BorderSide(
                     width: 1,
-                    color: SystemTheme.isDarkMode ? Colors.white : Colors.black,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
               ),
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
-                  color: SystemTheme.isDarkMode ? Colors.white : Colors.black,
+                  color: Theme.of(context).colorScheme.onSurface,
                   border: Border.all(
                     width: 1,
-                    color: SystemTheme.isDarkMode ? Colors.white : Colors.black,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(5),
@@ -187,7 +184,7 @@ class _CustomSliderState extends State<CustomSlider> {
                     style: TextStyle(
                       fontSize: 20,
                       color:
-                          SystemTheme.isDarkMode ? Colors.black : Colors.white,
+                          Theme.of(context).colorScheme.surface,
                     ),
                   ),
                 ),

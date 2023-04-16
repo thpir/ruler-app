@@ -14,7 +14,7 @@ import './providers/ui_theme_provider.dart';
 import './shared_prefs/ui_theme_preference.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized(); // add this line
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
