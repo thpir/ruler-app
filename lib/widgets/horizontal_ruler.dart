@@ -37,7 +37,7 @@ class HorizontalRuler extends StatelessWidget {
             border: Border(
               right: BorderSide(
                 width: 1,
-                color: Theme.of(context).colorScheme.onSurface,
+                color: Theme.of(context).focusColor
               ),
             ),
           ),
@@ -55,8 +55,9 @@ class HorizontalRuler extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: Text(
                 (index + 1).toString(),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20,
+                  color: Theme.of(context).focusColor,
                 ),
               )),
         );

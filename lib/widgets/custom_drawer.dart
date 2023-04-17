@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './list_tile_ui.dart';
+import './metrics_toggle_button.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -24,6 +25,8 @@ class CustomDrawer extends StatelessWidget {
           ),
         ),
         const ListTileUi(),
+        const SizedBox(height: 20,),
+        const MetricsToggleButton(),
       ],
     ));
   }

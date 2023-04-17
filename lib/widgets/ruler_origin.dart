@@ -11,19 +11,28 @@ class RulerOrigin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 3 * pixelCountInMm,
-      height: 3 * pixelCountInMm,
+      width: 5 * pixelCountInMm,
+      height: 5 * pixelCountInMm,
       decoration: BoxDecoration(
           border: Border(
         top: BorderSide(
-            color: Theme.of(context).colorScheme.onSurface,
+            color: Theme.of(context).focusColor,
             width: 1,
             style: BorderStyle.solid),
         left: BorderSide(
-            color: Theme.of(context).colorScheme.onSurface,
+            color: Theme.of(context).focusColor,
             width: 1,
             style: BorderStyle.solid),
       )),
+      child: Center(
+        child: Text(
+          '0',
+          style: TextStyle(
+            fontSize: 20,
+            color: Theme.of(context).focusColor,
+          ),
+        ),
+      ),
     );
   }
 }

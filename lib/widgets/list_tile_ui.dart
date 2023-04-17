@@ -35,7 +35,7 @@ class _ListTileUiState extends State<ListTileUi> {
     return Column(
       children: <Widget>[
         RadioListTile(
-            activeColor: const Color(0xFFFFC501),
+            activeColor: Colors.amber,
             title: const Text('UI-mode'),
             value: 'ui',
             groupValue: uiMode,
@@ -46,7 +46,7 @@ class _ListTileUiState extends State<ListTileUi> {
               themeChange.uiMode = value.toString();
             })),
         RadioListTile(
-            activeColor: const Color(0xFFFFC501),
+            activeColor: Colors.amber,
             title: const Text('Dark-mode'),
             value: 'dark',
             groupValue: uiMode,
@@ -57,7 +57,7 @@ class _ListTileUiState extends State<ListTileUi> {
               themeChange.uiMode = value.toString();
             })),
         RadioListTile(
-            activeColor: const Color(0xFFFFC501),
+            activeColor: Colors.amber,
             title: const Text('Light-mode'),
             value: 'light',
             groupValue: uiMode,

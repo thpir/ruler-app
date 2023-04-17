@@ -37,7 +37,7 @@ class VerticalRuler extends StatelessWidget {
             border: Border(
               bottom: BorderSide(
                 width: 1,
-                color: Theme.of(context).colorScheme.onSurface,
+                color: Theme.of(context).focusColor,
               ),
             ),
           ),
@@ -55,8 +55,9 @@ class VerticalRuler extends StatelessWidget {
               alignment: Alignment.bottomLeft,
               child: Text(
                 index > 0 ? (index + 1).toString() : '',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20,
+                  color: Theme.of(context).focusColor,
                 ),
               )),
         );
