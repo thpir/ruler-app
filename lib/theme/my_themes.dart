@@ -6,9 +6,16 @@ class MyThemes {
     primarySwatch: Colors.amber,
     focusColor: Colors.black,
     scaffoldBackgroundColor: Colors.white,
-    textTheme: TextTheme(
-      headline6: const TextStyle(color: Colors.black),
-      bodyText2: TextStyle(color: Colors.grey[800]),
+    textTheme: const TextTheme(
+      headline6: TextStyle(color: Colors.black),
+      bodyText1: TextStyle(
+        color: Colors.black,
+        fontSize: 18
+      ),
+      bodyText2: TextStyle(
+        color: Colors.black,
+        fontSize: 16
+      ),
     ),
   );
 
@@ -17,9 +24,16 @@ class MyThemes {
     primarySwatch: Colors.amber,
     focusColor: Colors.white,
     scaffoldBackgroundColor: Colors.grey[900],
-    textTheme: TextTheme(
-      headline6: const TextStyle(color: Colors.white),
-      bodyText2: TextStyle(color: Colors.grey[300]),
+    textTheme: const TextTheme(
+      headline6: TextStyle(color: Colors.white),
+      bodyText1: TextStyle(
+        color: Colors.white,
+        fontSize: 18
+      ),
+      bodyText2: TextStyle(
+        color: Colors.white,
+        fontSize: 16
+      ),
     ),
   );
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './list_tile_ui.dart';
+import './list_tile_calibration.dart';
 import './metrics_toggle_button.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -14,19 +15,50 @@ class CustomDrawer extends StatelessWidget {
       children: [
         DrawerHeader(
           child: Column(
-            children: const [
-              CircleAvatar(
+            children: [
+              const CircleAvatar(
                 radius: 50,
                 backgroundImage: AssetImage('assets/images/ruler.png'),
               ),
-              Spacer(),
-              Text('Ruler Settings')
+              const Spacer(),
+              Text(
+                'Ruler Settings',
+                style: Theme.of(context).textTheme.headline6,
+              )
             ],
           ),
         ),
-        const ListTileUi(),
-        const SizedBox(height: 20,),
-        const MetricsToggleButton(),
+        SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Select your theme:',
+                  style: Theme.of(context).textTheme.bodyText1,
+                  ),
+              ),
+              const ListTileUi(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Select unit:',
+                  style: Theme.of(context).textTheme.bodyText1,
+                  ),
+              ),
+              const MetricsToggleButton(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Ruler calibration:',
+                  style: Theme.of(context).textTheme.bodyText1,
+                  ),
+              ),
+              const ListTileCalibration(),
+            ],
+          ),
+        )
       ],
     ));
   }

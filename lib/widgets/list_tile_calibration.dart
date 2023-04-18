@@ -4,78 +4,73 @@ import 'package:provider/provider.dart';
 import '../shared_prefs/ui_theme_preference.dart';
 import '../providers/ui_theme_provider.dart';
 
-class ListTileUi extends StatefulWidget {
-  const ListTileUi({super.key});
+class ListTileCalibration extends StatefulWidget {
+  const ListTileCalibration({super.key});
 
   @override
-  State<ListTileUi> createState() => _ListTileUiState();
+  State<ListTileCalibration> createState() => _ListTileCalibrationState();
 }
 
-class _ListTileUiState extends State<ListTileUi> {
-  String uiMode = '';
+class _ListTileCalibrationState extends State<ListTileCalibration> {
+  String calibrationMode = '';
 
   @override
   void initState() {
     super.initState();
-    getUiTheme().then((value) {
+    /*getUiTheme().then((value) {
       setState(() {
         uiMode = value.toString();
       });
-    });
+    });*/
   }
 
-  Future<String> getUiTheme() async {
+  /*Future<String> getUiTheme() async {
     UiThemePreference uiThemePreferene = UiThemePreference();
     return uiThemePreferene.getUiTheme();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<UiThemeProvider>(context);
+    //final themeChange = Provider.of<UiThemeProvider>(context);
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         RadioListTile(
             activeColor: Colors.amber,
             title: Text(
-              'UI-mode',
+              'Use default calibration',
               style: Theme.of(context).textTheme.bodyText2,
             ),
-            value: 'ui',
-            groupValue: uiMode,
-            onChanged: ((value) async {
+            value: 'default',
+            groupValue: calibrationMode,
+            onChanged: null
+            /*((value) async {
               setState(() {
                 uiMode = value.toString();
               });
               themeChange.uiMode = value.toString();
-            })),
+            })*/),
         RadioListTile(
             activeColor: Colors.amber,
             title: Text(
-              'Dark-mode',
+              'Use custom calibration',
               style: Theme.of(context).textTheme.bodyText2,
             ),
             value: 'dark',
-            groupValue: uiMode,
-            onChanged: ((value) async {
+            groupValue: calibrationMode,
+            onChanged: null
+            /*((value) async {
               setState(() {
                 uiMode = value.toString();
               });
               themeChange.uiMode = value.toString();
-            })),
-        RadioListTile(
-            activeColor: Colors.amber,
-            title: Text(
-              'Light-mode',
-              style: Theme.of(context).textTheme.bodyText2,
-            ),
-            value: 'light',
-            groupValue: uiMode,
-            onChanged: ((value) async {
-              setState(() {
-                uiMode = value.toString();
-              });
-              themeChange.uiMode = value.toString();
-            })),
+            })*/),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: ElevatedButton(
+            onPressed: () {}, 
+            child: const Text('Calibrate ruler')),
+        )
       ],
     );
   }
