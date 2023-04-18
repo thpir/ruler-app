@@ -6,6 +6,7 @@ class Sliders extends StatefulWidget {
   final double pixelCountInMm;
   final double width;
   final double height;
+  final bool isMm;
   const Sliders({
     Key? key,
     required this.sliderHeight,
@@ -13,6 +14,7 @@ class Sliders extends StatefulWidget {
     required this.pixelCountInMm,
     required this.width,
     required this.height,
+    required this.isMm,
   }) : super(key: key);
 
   @override
@@ -33,9 +35,12 @@ class _SlidersState extends State<Sliders> {
           setState(() {});
         },
         sliderHeight: widget.sliderHeight,
-        availableWidthInMm: (widget.width - 50) / widget.pixelCountInMm,
+        availableWidthInMm: (widget.width - 50) /
+            (widget.isMm ? widget.pixelCountInMm : widget.pixelCountInMm * 8),
         sliderWidth: widget.sliderWidth,
-        availableHeightInMm: (widget.height - 50) / widget.pixelCountInMm,
+        availableHeightInMm: (widget.height - 50) /
+            (widget.isMm ? widget.pixelCountInMm : widget.pixelCountInMm * 8),
+        isMm: widget.isMm,
       ),
     );
   }
@@ -48,6 +53,7 @@ class CustomSlider extends StatefulWidget {
   final double sliderWidth;
   final double availableWidthInMm;
   final double availableHeightInMm;
+  final bool isMm;
 
   const CustomSlider(
       {Key? key,
@@ -56,7 +62,8 @@ class CustomSlider extends StatefulWidget {
       required this.sliderHeight,
       required this.sliderWidth,
       required this.availableWidthInMm,
-      required this.availableHeightInMm})
+      required this.availableHeightInMm,
+      required this.isMm})
       : super(key: key);
 
   @override
@@ -132,7 +139,9 @@ class _CustomSliderState extends State<CustomSlider> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(0)} mm',
+                      widget.isMm 
+                      ? '${(horizontalValueListener.value * widget.availableWidthInMm + 0.2).toStringAsFixed(1)} mm'
+                      : '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(2)} inch',
                       style: TextStyle(
                         fontSize: 20,
                         color: Theme.of(context).colorScheme.surface,
@@ -180,11 +189,12 @@ class _CustomSliderState extends State<CustomSlider> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    '${(verticalValueListener.value * widget.availableHeightInMm).toStringAsFixed(0)} mm',
+                    widget.isMm 
+                      ? '${(verticalValueListener.value * widget.availableHeightInMm + 0.2).toStringAsFixed(1)} mm'
+                      : '${(verticalValueListener.value * widget.availableHeightInMm).toStringAsFixed(2)} inch',
                     style: TextStyle(
                       fontSize: 20,
-                      color:
-                          Theme.of(context).colorScheme.surface,
+                      color: Theme.of(context).colorScheme.surface,
                     ),
                   ),
                 ),

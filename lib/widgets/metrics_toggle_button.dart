@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../shared_prefs/metrics_preference.dart';
+import '../providers/metrics_provider.dart';
 
 class MetricsToggleButton extends StatefulWidget {
   const MetricsToggleButton({super.key});
@@ -36,40 +38,42 @@ class _MetricsToggleButtonState extends State<MetricsToggleButton> {
   }
 
   void setToggleButton() {
-  if (metrics == 'mm') {
-    setState(() {
-      _selectedMetrics[0] = true;
-      _selectedMetrics[1] = false;
-    });
-  } else {
-    setState(() {
-      _selectedMetrics[0] = false;
-      _selectedMetrics[1] = true;
-    });
+    if (metrics == 'mm') {
+      setState(() {
+        _selectedMetrics[0] = true;
+        _selectedMetrics[1] = false;
+      });
+    } else {
+      setState(() {
+        _selectedMetrics[0] = false;
+        _selectedMetrics[1] = true;
+      });
+    }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
+    final metricsChange = Provider.of<MetricsProvider>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: ToggleButtons(
         direction: Axis.horizontal,
         onPressed: (index) {
-          MetricsPreference metricsPreference = MetricsPreference();
+          //MetricsPreference metricsPreference = MetricsPreference();
           setState(() {
             // The button that is tapped is set to true, and the other one to false
             for (int i = 0; i < _selectedMetrics.length; i++) {
               _selectedMetrics[i] = i == index;
             }
             for (int j = 0; j < _selectedMetrics.length; j++) {
-            if (_selectedMetrics[j]) {
-              j == 0
-                  ? metricsPreference.setMetrics('mm')
-                  : metricsPreference.setMetrics('in');
+              if (_selectedMetrics[j]) {
+                j == 0
+                    //? metricsPreference.setMetrics('mm')
+                    ? metricsChange.metrics = 'mm'
+                    //: metricsPreference.setMetrics('in');
+                    : metricsChange.metrics = 'in';
+              }
             }
-          }
           });
         },
         borderRadius: const BorderRadius.all(Radius.circular(8)),

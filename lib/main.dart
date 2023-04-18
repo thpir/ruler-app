@@ -11,6 +11,7 @@ import './widgets/sliders.dart';
 import './widgets/ruler_origin.dart';
 import './widgets/custom_drawer.dart';
 import './providers/ui_theme_provider.dart';
+import './providers/metrics_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,17 +29,21 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   UiThemeProvider uiThemeProvider = UiThemeProvider();
+  MetricsProvider metricsProvider = MetricsProvider();
 
   ThemeData themeProvider(String value) {
-    switch (value) {
-      case 'dark':
-        {
-          return MyThemes.darkTheme;
-        }
-      default:
-        {
-          return MyThemes.lightTheme;
-        }
+    if (value == 'dark') {
+      return MyThemes.darkTheme;
+    } else {
+      return MyThemes.lightTheme;
+    }
+  }
+
+  bool isMm(String value) {
+    if (value == 'mm') {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -48,22 +53,27 @@ class _MyAppState extends State<MyApp> {
     return ChangeNotifierProvider(
       create: (_) => UiThemeProvider(),
       child: Consumer<UiThemeProvider>(
-          builder: ((context, uiMode, _) => MaterialApp(
-                title: 'Ruler',
-                theme: themeProvider(uiMode.uiMode),
-                darkTheme: uiMode.uiMode == 'ui'
-                    ? MyThemes.darkTheme
-                    : null,
-                home: const MyHomePage(title: 'Ruler'),
-              ))),
+        builder: ((context, uiMode, _) => ChangeNotifierProvider(
+              create: (_) => MetricsProvider(),
+              child: Consumer<MetricsProvider>(
+                builder: (context, metrics, _) => MaterialApp(
+                  title: 'Ruler',
+                  theme: themeProvider(uiMode.uiMode),
+                  darkTheme: uiMode.uiMode == 'ui' ? MyThemes.darkTheme : null,
+                  home: MyHomePage(title: 'Ruler', isMm: isMm(metrics.metrics)),
+                ),
+              ),
+            )),
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title, required this.isMm});
 
   final String title;
+  final bool isMm;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -107,41 +117,52 @@ class _MyHomePageState extends State<MyHomePage> {
         _dpi; // dpi = ackquired by android code if not returned we use 160 with devicePixelRatio = 1
     double pixelCountInMm =
         dpiFixed / pixelRatio / 25.4; // = How many logical pixels in 1 mm
+    double pixelCountInInches =
+        dpiFixed / pixelRatio / 8; // = How many logical pixels in 1/8 inch
 
     // Now calculate available height for vertical ruler
     double height = MediaQuery.of(context).size.height;
     double paddingTop = MediaQuery.of(context).padding.top;
     double paddingBottom = MediaQuery.of(context).padding.bottom;
     double appBarHeight = AppBar().preferredSize.height;
-    int numberOfVerticalRulerPins =
-        ((height - appBarHeight - paddingBottom - paddingTop) / pixelCountInMm)
+    int numberOfVerticalRulerPins = widget.isMm
+        ? ((height - appBarHeight - paddingBottom - paddingTop) /
+                pixelCountInMm)
+            .floor()
+        : ((height - appBarHeight - paddingBottom - paddingTop) /
+                pixelCountInInches)
             .floor();
 
     // Now calculate available width for horizontal ruler
     double width = MediaQuery.of(context).size.width;
     double paddingLeft = MediaQuery.of(context).padding.left;
     double paddingRight = MediaQuery.of(context).padding.right;
-    int numberOfHorizontalRulerPins =
-        ((width - paddingLeft - paddingRight) / pixelCountInMm).floor();
+    int numberOfHorizontalRulerPins = widget.isMm
+        ? ((width - paddingLeft - paddingRight) / pixelCountInMm).floor()
+        : ((width - paddingLeft - paddingRight) / pixelCountInInches).floor();
 
     return Scaffold(
       appBar: AppBar(elevation: 0, title: const Text('Ruler')),
       body: Stack(children: <Widget>[
         VerticalRuler(
           numberOfVerticalRulerPins: numberOfVerticalRulerPins,
-          pixelCountInMm: pixelCountInMm,
+          pixelCountInMm: widget.isMm ? pixelCountInMm : pixelCountInInches,
+          isMm: widget.isMm,
         ),
         HorizontalRuler(
           numberOfHorizontalRulerPins: numberOfHorizontalRulerPins,
-          pixelCountInMm: pixelCountInMm,
+          pixelCountInMm: widget.isMm ? pixelCountInMm : pixelCountInInches,
+          isMm: widget.isMm,
         ),
         RulerOrigin(pixelCountInMm: pixelCountInMm),
         Sliders(
             sliderHeight: height - appBarHeight - paddingBottom - paddingTop,
             sliderWidth: width - paddingLeft - paddingRight,
-            pixelCountInMm: pixelCountInMm,
+            pixelCountInMm: widget.isMm ? pixelCountInMm : pixelCountInInches,
             width: width - paddingLeft - paddingRight,
-            height: height - appBarHeight - paddingBottom - paddingTop)
+            height: height - appBarHeight - paddingBottom - paddingTop,
+            isMm: widget.isMm,
+        )
       ]),
       drawer: const CustomDrawer(),
     );
