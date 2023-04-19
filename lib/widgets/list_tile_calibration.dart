@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../shared_prefs/ui_theme_preference.dart';
-import '../providers/ui_theme_provider.dart';
+import '../shared_prefs/calibration_preference.dart';
+import '../providers/calibration_provider.dart';
+import '../screens/calibration_screen.dart';
 
 class ListTileCalibration extends StatefulWidget {
   const ListTileCalibration({super.key});
@@ -17,21 +18,21 @@ class _ListTileCalibrationState extends State<ListTileCalibration> {
   @override
   void initState() {
     super.initState();
-    /*getUiTheme().then((value) {
+    getCalibrationMode().then((value) {
       setState(() {
-        uiMode = value.toString();
+        calibrationMode = value.toString();
       });
-    });*/
+    });
   }
 
-  /*Future<String> getUiTheme() async {
-    UiThemePreference uiThemePreferene = UiThemePreference();
-    return uiThemePreferene.getUiTheme();
-  }*/
+  Future<String> getCalibrationMode() async {
+    CalibrationPreference calibrationPreference = CalibrationPreference();
+    return calibrationPreference.getCalibrationChoice();
+  }
 
   @override
   Widget build(BuildContext context) {
-    //final themeChange = Provider.of<UiThemeProvider>(context);
+    final calibrationChange = Provider.of<CalibrationProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -43,32 +44,33 @@ class _ListTileCalibrationState extends State<ListTileCalibration> {
             ),
             value: 'default',
             groupValue: calibrationMode,
-            onChanged: null
-            /*((value) async {
+            onChanged: ((value) async {
               setState(() {
-                uiMode = value.toString();
+                calibrationMode = value.toString();
               });
-              themeChange.uiMode = value.toString();
-            })*/),
+              calibrationChange.calibrationMode = value.toString();
+            })),
         RadioListTile(
             activeColor: Colors.amber,
             title: Text(
               'Use custom calibration',
               style: Theme.of(context).textTheme.bodyText2,
             ),
-            value: 'dark',
+            value: 'custom',
             groupValue: calibrationMode,
-            onChanged: null
-            /*((value) async {
+            onChanged: ((value) async {
               setState(() {
-                uiMode = value.toString();
+                calibrationMode = value.toString();
               });
-              themeChange.uiMode = value.toString();
-            })*/),
+              calibrationChange.calibrationMode = value.toString();
+            })),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: ElevatedButton(
-            onPressed: () {}, 
+            onPressed: () {
+              Navigator.of(context)
+                  .pushNamed(CalibrationScreen.routeName);
+            }, 
             child: const Text('Calibrate ruler')),
         )
       ],

@@ -12,6 +12,8 @@ import './widgets/ruler_origin.dart';
 import './widgets/custom_drawer.dart';
 import './providers/ui_theme_provider.dart';
 import './providers/metrics_provider.dart';
+import './providers/calibration_provider.dart';
+import './screens/calibration_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +32,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   UiThemeProvider uiThemeProvider = UiThemeProvider();
   MetricsProvider metricsProvider = MetricsProvider();
+  CalibrationProvider calibrationProvider = CalibrationProvider();
 
   ThemeData themeProvider(String value) {
     if (value == 'dark') {
@@ -47,33 +50,54 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  bool isDefaultCalibration(String value) {
+    if (value == 'default') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => UiThemeProvider(),
       child: Consumer<UiThemeProvider>(
-        builder: ((context, uiMode, _) => ChangeNotifierProvider(
-              create: (_) => MetricsProvider(),
-              child: Consumer<MetricsProvider>(
-                builder: (context, metrics, _) => MaterialApp(
+        builder: (context, uiMode, _) => ChangeNotifierProvider(
+          create: (_) => MetricsProvider(),
+          child: Consumer<MetricsProvider>(
+            builder: (context, metrics, _) => ChangeNotifierProvider(
+              create: (_) => CalibrationProvider(),
+              child: Consumer<CalibrationProvider>(
+                builder: (context, calibrationMode, _) => MaterialApp(
                   title: 'Ruler',
                   theme: themeProvider(uiMode.uiMode),
                   darkTheme: uiMode.uiMode == 'ui' ? MyThemes.darkTheme : null,
-                  home: MyHomePage(title: 'Ruler', isMm: isMm(metrics.metrics)),
+                  home: MyHomePage(
+                      title: 'Ruler',
+                      isMm: isMm(metrics.metrics),
+                      isDefaultCalibration: isDefaultCalibration(
+                          calibrationMode.calibrationMode)),
+                  routes: {
+                    CalibrationScreen.routeName: (ctx) => CalibrationScreen(),
+                  },
                 ),
               ),
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title, required this.isMm});
+  const MyHomePage({super.key, required this.title, required this.isMm, required this.isDefaultCalibration});
 
   final String title;
   final bool isMm;
+  final bool isDefaultCalibration;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -113,8 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     double pixelRatio = MediaQuery.of(context)
         .devicePixelRatio; // = How many physical pixels for 1 logical pixel
-    double dpiFixed =
-        _dpi; // dpi = ackquired by android code if not returned we use 160 with devicePixelRatio = 1
+    double dpiFixed = widget.isDefaultCalibration ? _dpi : 160; // dpi = ackquired by android code if not returned we use 160 with devicePixelRatio = 1
     double pixelCountInMm =
         dpiFixed / pixelRatio / 25.4; // = How many logical pixels in 1 mm
     double pixelCountInInches =
@@ -156,12 +179,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         RulerOrigin(pixelCountInMm: pixelCountInMm),
         Sliders(
-            sliderHeight: height - appBarHeight - paddingBottom - paddingTop,
-            sliderWidth: width - paddingLeft - paddingRight,
-            pixelCountInMm: widget.isMm ? pixelCountInMm : pixelCountInInches,
-            width: width - paddingLeft - paddingRight,
-            height: height - appBarHeight - paddingBottom - paddingTop,
-            isMm: widget.isMm,
+          sliderHeight: height - appBarHeight - paddingBottom - paddingTop,
+          sliderWidth: width - paddingLeft - paddingRight,
+          pixelCountInMm: widget.isMm ? pixelCountInMm : pixelCountInInches,
+          width: width - paddingLeft - paddingRight,
+          height: height - appBarHeight - paddingBottom - paddingTop,
+          isMm: widget.isMm,
         )
       ]),
       drawer: const CustomDrawer(),
