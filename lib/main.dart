@@ -14,6 +14,7 @@ import './providers/ui_theme_provider.dart';
 import './providers/metrics_provider.dart';
 import './providers/calibration_provider.dart';
 import './screens/calibration_screen.dart';
+import './shared_prefs/calibration_preference.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,17 +73,20 @@ class _MyAppState extends State<MyApp> {
               child: Consumer<CalibrationProvider>(
                 builder: (context, calibrationMode, _) => MaterialApp(
                   title: 'Ruler',
-                  theme: themeProvider(uiMode.uiMode),
-                  darkTheme: uiMode.uiMode == 'ui' ? MyThemes.darkTheme : null,
-                  home: MyHomePage(
+                    theme: themeProvider(uiMode.uiMode),
+                    darkTheme:
+                      uiMode.uiMode == 'ui' ? MyThemes.darkTheme : null,
+                    home: MyHomePage(
                       title: 'Ruler',
                       isMm: isMm(metrics.metrics),
-                      isDefaultCalibration: isDefaultCalibration(
-                          calibrationMode.calibrationMode)),
-                  routes: {
-                    CalibrationScreen.routeName: (ctx) => CalibrationScreen(),
-                  },
-                ),
+                      isDefaultCalibration: isDefaultCalibration(calibrationMode.calibrationMode),
+                      calibrationValue: calibrationMode.calibrationValue,
+                    ),
+                    routes: {
+                      CalibrationScreen.routeName: (ctx) =>
+                        const CalibrationScreen(),
+                    },
+                ),  
               ),
             ),
           ),
@@ -93,11 +97,18 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title, required this.isMm, required this.isDefaultCalibration});
+  const MyHomePage({
+    super.key,
+    required this.title,
+    required this.isMm,
+    required this.isDefaultCalibration,
+    required this.calibrationValue,
+  });
 
   final String title;
   final bool isMm;
   final bool isDefaultCalibration;
+  final double calibrationValue;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -127,21 +138,31 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<double> getCalibrationValue() async {
+    CalibrationPreference calibrationPreference = CalibrationPreference();
+    return calibrationPreference.getCalibrationValue();
+  }
+
   @override
   void initState() {
-    _getPhoneDpi();
     super.initState();
+    _getPhoneDpi();
   }
 
   @override
   Widget build(BuildContext context) {
     double pixelRatio = MediaQuery.of(context)
         .devicePixelRatio; // = How many physical pixels for 1 logical pixel
-    double dpiFixed = widget.isDefaultCalibration ? _dpi : 160; // dpi = ackquired by android code if not returned we use 160 with devicePixelRatio = 1
-    double pixelCountInMm =
-        dpiFixed / pixelRatio / 25.4; // = How many logical pixels in 1 mm
-    double pixelCountInInches =
-        dpiFixed / pixelRatio / 8; // = How many logical pixels in 1/8 inch
+    double dpiFixed =
+        _dpi; // dpi = ackquired by android code if not returned we use 160 with devicePixelRatio = 1
+    double pixelCountInMm = widget.isDefaultCalibration
+        ? dpiFixed / pixelRatio / 25.4
+        : widget.calibrationValue; // = How many logical pixels in 1 mm
+    double pixelCountInInches = widget.isDefaultCalibration
+        ? dpiFixed / pixelRatio / 8
+        : widget.calibrationValue *
+            25.4 /
+            8; // = How many logical pixels in 1/8 inch
 
     // Now calculate available height for vertical ruler
     double height = MediaQuery.of(context).size.height;

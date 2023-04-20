@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CalibrationPreference {
@@ -23,6 +21,6 @@ class CalibrationPreference {
 
   Future<double> getCalibrationValue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getDouble(calibrationValue) ?? 160;
+    return prefs.getDouble(calibrationValue) ?? 5;
   }
 }

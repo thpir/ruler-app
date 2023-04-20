@@ -68,8 +68,9 @@ class _ListTileCalibrationState extends State<ListTileCalibration> {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: ElevatedButton(
             onPressed: () {
+              Navigator.pop(context); // Close the drawer
               Navigator.of(context)
-                  .pushNamed(CalibrationScreen.routeName);
+                  .pushNamed(CalibrationScreen.routeName); // Open the calibration screen on top of the main screen
             }, 
             child: const Text('Calibrate ruler')),
         )
