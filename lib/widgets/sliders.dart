@@ -113,25 +113,28 @@ class _CustomSliderState extends State<CustomSlider> {
               alignment: Alignment.bottomLeft,
               height: widget.sliderHeight,
               width: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   left: BorderSide(
                     width: 1,
-                    color: Theme.of(context).colorScheme.onSurface,
+                    //color: Theme.of(context).colorScheme.onSurface,
+                    color: Colors.amber,
                   ),
                 ),
               ),
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onSurface,
+                  //color: Theme.of(context).colorScheme.onSurface,
+                  color: Colors.amber,
                   border: Border.all(
                     width: 1,
-                    color: Theme.of(context).colorScheme.onSurface,
+                    //color: Theme.of(context).colorScheme.onSurface,
+                    color: Colors.amber,
                   ),
                   borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(5),
-                    bottomRight: Radius.circular(5),
+                    topRight: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
                   ),
                 ),
                 child: RotatedBox(
@@ -142,9 +145,10 @@ class _CustomSliderState extends State<CustomSlider> {
                       widget.isMm 
                       ? '${(horizontalValueListener.value * widget.availableWidthInMm + 0.2).toStringAsFixed(1)} mm'
                       : '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(2)} inch',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
-                        color: Theme.of(context).colorScheme.surface,
+                        //color: Theme.of(context).colorScheme.surface,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -165,25 +169,28 @@ class _CustomSliderState extends State<CustomSlider> {
               alignment: Alignment.topRight,
               width: widget.sliderWidth,
               height: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   top: BorderSide(
                     width: 1,
-                    color: Theme.of(context).colorScheme.onSurface,
+                    //color: Theme.of(context).colorScheme.onSurface,
+                    color: Colors.amber,
                   ),
                 ),
               ),
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onSurface,
+                  //color: Theme.of(context).colorScheme.onSurface,
+                  color: Colors.amber,
                   border: Border.all(
                     width: 1,
-                    color: Theme.of(context).colorScheme.onSurface,
+                    //color: Theme.of(context).colorScheme.onSurface,
+                    color: Colors.amber,
                   ),
                   borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(5),
-                    bottomRight: Radius.circular(5),
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
                   ),
                 ),
                 child: Padding(
@@ -192,9 +199,10 @@ class _CustomSliderState extends State<CustomSlider> {
                     widget.isMm 
                       ? '${(verticalValueListener.value * widget.availableHeightInMm + 0.2).toStringAsFixed(1)} mm'
                       : '${(verticalValueListener.value * widget.availableHeightInMm).toStringAsFixed(2)} inch',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
-                      color: Theme.of(context).colorScheme.surface,
+                      //color: Theme.of(context).colorScheme.surface,
+                      color: Colors.black,
                     ),
                   ),
                 ),

@@ -75,7 +75,10 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calibrate Ruler'),
+        title: const Text(
+          'Calibrate Ruler',
+          style: TextStyle(fontFamily: 'Roboto', fontWeight: FontWeight.bold,fontSize: 20)
+        ),
         actions: <Widget>[
           IconButton(
             onPressed: () {

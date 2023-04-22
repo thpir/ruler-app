@@ -72,7 +72,14 @@ class _ListTileCalibrationState extends State<ListTileCalibration> {
               Navigator.of(context)
                   .pushNamed(CalibrationScreen.routeName); // Open the calibration screen on top of the main screen
             }, 
-            child: const Text('Calibrate ruler')),
+            child: const Text(
+              'Calibrate ruler',
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'Roboto',
+                fontSize: 16,
+              ),
+            )),
         )
       ],
     );
