@@ -6,8 +6,10 @@ import './theme/my_themes.dart';
 import './providers/ui_theme_provider.dart';
 import './providers/metrics_provider.dart';
 import './providers/calibration_provider.dart';
+import './providers/database_provider.dart';
 import './screens/calibration_screen.dart';
 import './screens/home_screen.dart';
+import './screens/measurement_list_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,6 +56,46 @@ class _MyAppState extends State<MyApp> {
 
   // This widget is the root of the application.
   @override
+Widget build(BuildContext context) {
+  return MultiProvider(
+    providers: [
+      ChangeNotifierProvider<UiThemeProvider>(
+        create: (_) => UiThemeProvider(),
+      ),
+      ChangeNotifierProvider<MetricsProvider>(
+        create: (_) => MetricsProvider(),
+      ),
+      ChangeNotifierProvider<CalibrationProvider>(
+        create: (_) => CalibrationProvider(),
+      ),
+      ChangeNotifierProvider<DatabaseProvider>(
+        create: (_) => DatabaseProvider(),
+      ),
+    ],
+    child: Consumer<UiThemeProvider>(
+      builder: (context, uiMode, _) => MaterialApp(
+        title: 'Ruler',
+        theme: themeProvider(uiMode.uiMode),
+        darkTheme: uiMode.uiMode == 'ui' ? MyThemes.darkTheme : null,
+        home: Consumer2<MetricsProvider, CalibrationProvider>(
+          builder: (context, metrics, calibrationMode, _) => HomeScreen(
+            title: 'Ruler',
+            isMm: isMm(metrics.metrics),
+            isDefaultCalibration: isDefaultCalibration(calibrationMode.calibrationMode),
+            calibrationValue: calibrationMode.calibrationValue,
+          ),
+        ),
+        routes: {
+          CalibrationScreen.routeName: (ctx) => const CalibrationScreen(),
+          MeasurementListScreen.routeName: (context) => const MeasurementListScreen(),
+        },
+      ),
+    ),
+  );
+}
+
+  /*
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => UiThemeProvider(),
@@ -78,6 +120,8 @@ class _MyAppState extends State<MyApp> {
                     routes: {
                       CalibrationScreen.routeName: (ctx) =>
                         const CalibrationScreen(),
+                      MeasurementListScreen.routeName:(context) => 
+                        const MeasurementListScreen(),
                     },
                 ),  
               ),
@@ -87,5 +131,6 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+  */
 }
 

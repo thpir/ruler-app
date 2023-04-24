@@ -1,4 +1,8 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/database_provider.dart';
 
 class Sliders extends StatefulWidget {
   final double sliderHeight;
@@ -73,6 +77,7 @@ class CustomSlider extends StatefulWidget {
 class _CustomSliderState extends State<CustomSlider> {
   ValueNotifier<double> horizontalValueListener = ValueNotifier(0.5);
   ValueNotifier<double> verticalValueListener = ValueNotifier(0.5);
+  var savedValue = '';
 
   @override
   void initState() {
@@ -93,6 +98,15 @@ class _CustomSliderState extends State<CustomSlider> {
     }
   }
 
+  void _addItem() {
+    var now = DateTime.now();
+    var formatter = DateFormat('EEEE, MMMM d, y');
+    String formattedDate = formatter.format(now);
+    Provider.of<DatabaseProvider>(context, listen: false).addMeasurement(
+        savedValue,
+        formattedDate);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -110,7 +124,7 @@ class _CustomSliderState extends State<CustomSlider> {
               notifyParentForHorizontalMovement();
             }),
             child: Container(
-              alignment: Alignment.bottomLeft,
+              alignment: Alignment.bottomCenter,
               height: widget.sliderHeight,
               width: 50,
               decoration: const BoxDecoration(
@@ -123,7 +137,6 @@ class _CustomSliderState extends State<CustomSlider> {
                 ),
               ),
               child: Container(
-                width: double.infinity,
                 decoration: BoxDecoration(
                   //color: Theme.of(context).colorScheme.onSurface,
                   color: Colors.amber,
@@ -140,16 +153,32 @@ class _CustomSliderState extends State<CustomSlider> {
                 child: RotatedBox(
                   quarterTurns: -1,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      widget.isMm 
-                      ? '${(horizontalValueListener.value * widget.availableWidthInMm + 0.2).toStringAsFixed(1)} mm'
-                      : '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(2)} inch',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        //color: Theme.of(context).colorScheme.surface,
-                        color: Colors.black,
-                      ),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          widget.isMm
+                              ? '${(horizontalValueListener.value * widget.availableWidthInMm + 0.2).toStringAsFixed(1)} mm'
+                              : '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(2)} inch',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            //color: Theme.of(context).colorScheme.surface,
+                            color: Colors.black,
+                          ),
+                        ),
+                        IconButton(
+                            onPressed: (() {
+                              savedValue = widget.isMm
+                                  ? '${(horizontalValueListener.value * widget.availableWidthInMm + 0.2).toStringAsFixed(1)} mm'
+                                  : '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(2)} inch';
+                              _addItem();
+                            }),
+                            icon: const Icon(
+                              Icons.save,
+                              color: Colors.black,
+                            )),
+                      ],
                     ),
                   ),
                 ),
@@ -194,16 +223,32 @@ class _CustomSliderState extends State<CustomSlider> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.isMm 
-                      ? '${(verticalValueListener.value * widget.availableHeightInMm + 0.2).toStringAsFixed(1)} mm'
-                      : '${(verticalValueListener.value * widget.availableHeightInMm).toStringAsFixed(2)} inch',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      //color: Theme.of(context).colorScheme.surface,
-                      color: Colors.black,
-                    ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        widget.isMm
+                            ? '${(verticalValueListener.value * widget.availableHeightInMm + 0.2).toStringAsFixed(1)} mm'
+                            : '${(verticalValueListener.value * widget.availableHeightInMm).toStringAsFixed(2)} inch',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          //color: Theme.of(context).colorScheme.surface,
+                          color: Colors.black,
+                        ),
+                      ),
+                      IconButton(
+                            onPressed: (() {
+                              savedValue = widget.isMm
+                                ? '${(verticalValueListener.value * widget.availableHeightInMm + 0.2).toStringAsFixed(1)} mm'
+                                : '${(verticalValueListener.value * widget.availableHeightInMm).toStringAsFixed(2)} inch';
+                              _addItem();
+                            }),
+                            icon: const Icon(
+                              Icons.save,
+                              color: Colors.black,
+                            ))
+                    ],
                   ),
                 ),
               ),

@@ -7,7 +7,7 @@ class DBHelper {
     return await sql.openDatabase(path.join(dbPath, 'measurements.db'),
         onCreate: (db, version) {
       return db.execute(
-          'CREATE TABLE measurements(id TEXT PRIMARY KEY, value REAL, description TEXT)');
+          'CREATE TABLE measurements(id TEXT PRIMARY KEY, value TEXT, description TEXT)');
     }, version: 1);
   }
 

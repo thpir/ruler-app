@@ -1,6 +1,6 @@
 class Measurement {
   final String id;
-  final double value;
+  final String value;
   final String description;
 
   Measurement({

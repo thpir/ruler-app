@@ -9,6 +9,7 @@ import '../widgets/sliders.dart';
 import '../widgets/ruler_origin.dart';
 import '../widgets/custom_drawer.dart';
 import '../shared_prefs/calibration_preference.dart';
+import '../screens/measurement_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -117,6 +118,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.bold,
                 fontSize: 20)),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              Navigator.of(context)
+                  .pushNamed(MeasurementListScreen.routeName);
+            },
+            icon: const Icon(
+              Icons.history_sharp,
+            ),
+          ),
+        ],
       ),
       body: Stack(children: <Widget>[
         VerticalRuler(

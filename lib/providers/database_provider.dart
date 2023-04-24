@@ -10,14 +10,14 @@ class DatabaseProvider with ChangeNotifier {
     return [..._items]; // Getter to return a COPY of the original _items list
   }
 
-  Future<void> addMeasurement(double measurement, String description) async {
+  Future<void> addMeasurement(String measurement, String description) async {
     final newMeasurement = Measurement(
         id: DateTime.now().toString(),
         value: measurement,
         description: description);
     _items.add(newMeasurement);
     notifyListeners();
-    DBHelper.insert('measurements', {
+    await DBHelper.insert('measurements', {
       'id': newMeasurement.id,
       'value': newMeasurement.value,
       'description': newMeasurement.description,
