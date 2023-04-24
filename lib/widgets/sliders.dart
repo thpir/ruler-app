@@ -105,6 +105,18 @@ class _CustomSliderState extends State<CustomSlider> {
     Provider.of<DatabaseProvider>(context, listen: false).addMeasurement(
         savedValue,
         formattedDate);
+    ScaffoldMessenger.of(context)
+          .showSnackBar(showMessage());
+  }
+
+  SnackBar showMessage() {
+    return SnackBar(
+      content: Text(
+        'Measurement Saved!',
+        style: Theme.of(context).textTheme.bodyText2,
+      ),
+      backgroundColor: Theme.of(context).primaryColor,
+    );
   }
 
   @override

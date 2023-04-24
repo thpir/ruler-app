@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/vertical_ruler.dart';
 import '../widgets/horizontal_ruler.dart';
@@ -33,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double _dpi = 160;
   String errorMessage = '';
   static const platform = MethodChannel('thpir/dpi');
+  final Uri _url = Uri.parse('https://www.buymeacoffee.com/thpir');
 
   Future<void> _getPhoneDpi() async {
     double dpi;
@@ -42,11 +44,13 @@ class _HomeScreenState extends State<HomeScreen> {
     } on PlatformException catch (e) {
       dpi = 160;
       errorMessage = e.toString();
-      ScaffoldMessenger.of(context).showSnackBar(showErrorMessage(errorMessage));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(showErrorMessage(errorMessage));
     } catch (e) {
       dpi = 160;
       errorMessage = e.toString();
-      ScaffoldMessenger.of(context).showSnackBar(showErrorMessage(errorMessage));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(showErrorMessage(errorMessage));
     }
     setState(() {
       _dpi = dpi;
@@ -66,6 +70,80 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<double> getCalibrationValue() async {
     CalibrationPreference calibrationPreference = CalibrationPreference();
     return calibrationPreference.getCalibrationValue();
+  }
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
+
+  Future<void> _showAboutDialog() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('About'),
+            content: SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text(
+                        'A ruler application for Android designed to measure any item the size of your smartphone accurately.'),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                    ),
+                    const Text(
+                        'If you like my work, please consider buying me a coffee.'),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                    ),
+                    const Text('Created by:'),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(24),
+                        child: Image.asset(
+                          'assets/images/thpir_logo.png',
+                        ),
+                      ),
+                    )
+                  ]),
+            ),
+            actions: <Widget>[
+              TextButton.icon(
+                  onPressed: () {
+                    _launchUrl();
+                    Navigator.of(context).pop();
+                  },
+                  label: Text(
+                    'Buy Coffee',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  icon: Icon(
+                    Icons.coffee_sharp,
+                    color: Theme.of(context).focusColor,
+                  )),
+              TextButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  label: Text(
+                    'Close',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  icon: Icon(
+                    Icons.close,
+                    color: Theme.of(context).focusColor,
+                  )),
+            ],
+          );
+        });
   }
 
   @override
@@ -121,12 +199,15 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              Navigator.of(context)
-                  .pushNamed(MeasurementListScreen.routeName);
+              Navigator.of(context).pushNamed(MeasurementListScreen.routeName);
             },
             icon: const Icon(
               Icons.history_sharp,
             ),
+          ),
+          IconButton(
+            onPressed: _showAboutDialog,
+            icon: const Icon(Icons.info_outline),
           ),
         ],
       ),
