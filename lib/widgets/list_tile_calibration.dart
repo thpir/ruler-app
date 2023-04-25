@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:localization/localization.dart';
 
 import '../shared_prefs/calibration_preference.dart';
 import '../providers/calibration_provider.dart';
@@ -39,7 +40,7 @@ class _ListTileCalibrationState extends State<ListTileCalibration> {
         RadioListTile(
             activeColor: Colors.amber,
             title: Text(
-              'Use default calibration',
+              'calibration_default'.i18n(),
               style: Theme.of(context).textTheme.bodyText2,
             ),
             value: 'default',
@@ -53,7 +54,7 @@ class _ListTileCalibrationState extends State<ListTileCalibration> {
         RadioListTile(
             activeColor: Colors.amber,
             title: Text(
-              'Use custom calibration',
+              'calibration_custom'.i18n(),
               style: Theme.of(context).textTheme.bodyText2,
             ),
             value: 'custom',
@@ -72,9 +73,9 @@ class _ListTileCalibrationState extends State<ListTileCalibration> {
               Navigator.of(context)
                   .pushNamed(CalibrationScreen.routeName); // Open the calibration screen on top of the main screen
             }, 
-            child: const Text(
-              'Calibrate ruler',
-              style: TextStyle(
+            child: Text(
+              'button_text_calibration'.i18n(),
+              style: const TextStyle(
                 color: Colors.black,
                 fontFamily: 'Roboto',
                 fontSize: 16,

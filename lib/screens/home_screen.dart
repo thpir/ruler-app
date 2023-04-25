@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:localization/localization.dart';
 
 import '../widgets/vertical_ruler.dart';
 import '../widgets/horizontal_ruler.dart';
@@ -60,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
   SnackBar showErrorMessage(String message) {
     return SnackBar(
       content: Text(
-        '$message. We advice to use a custom calibration...',
+        message + 'error_message_calibration'.i18n(),
         style: const TextStyle(color: Colors.black),
       ),
       backgroundColor: Theme.of(context).errorColor,
@@ -84,22 +85,20 @@ class _HomeScreenState extends State<HomeScreen> {
         barrierDismissible: true,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('About'),
+            title: Text('about_title'.i18n()),
             content: SingleChildScrollView(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Text(
-                        'A ruler application for Android designed to measure any item the size of your smartphone accurately.'),
+                    Text('about_text_1'.i18n()),
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 5),
                     ),
-                    const Text(
-                        'If you like my work, please consider buying me a coffee.'),
+                    Text('about_text_2'.i18n()),
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 5),
                     ),
-                    const Text('Created by:'),
+                    Text('about_text_3'.i18n()),
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 5),
                     ),
@@ -122,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.of(context).pop();
                   },
                   label: Text(
-                    'Buy Coffee',
+                    'button_text_buy_coffee'.i18n(),
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                   icon: Icon(
@@ -134,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.of(context).pop();
                   },
                   label: Text(
-                    'Close',
+                    'button_text_close'.i18n(),
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                   icon: Icon(
@@ -191,8 +190,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text('Ruler',
-            style: TextStyle(
+        title: Text('app_name'.i18n(),
+            style: const TextStyle(
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.bold,
                 fontSize: 20)),

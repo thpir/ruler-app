@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:localization/localization.dart';
 
 import '../shared_prefs/metrics_preference.dart';
 import '../providers/calibration_provider.dart';
@@ -75,9 +76,9 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Calibrate Ruler',
-          style: TextStyle(fontFamily: 'Roboto', fontWeight: FontWeight.bold,fontSize: 20)
+        title: Text(
+          'appbar_calibration_text'.i18n(),
+          style: const TextStyle(fontFamily: 'Roboto', fontWeight: FontWeight.bold,fontSize: 20)
         ),
         actions: <Widget>[
           IconButton(
@@ -130,8 +131,8 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 70.0),
                           child: Text(
                             metrics == 'mm'
-                                ? 'Measure 5 centimeters & tab the save button to calibrate. Drag to resize the ruler.'
-                                : 'Measure 2 inches & tab the save button to calibrate. Drag to resize the ruler.',
+                                ? 'calibration_explanation_text_mm'.i18n()
+                                : 'calibration_explanation_text_inch'.i18n(),
                             style: Theme.of(context).textTheme.headline6,
                             textAlign: TextAlign.center,
                           ),

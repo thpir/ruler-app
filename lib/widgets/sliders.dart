@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:localization/localization.dart';
 
 import '../providers/database_provider.dart';
 
@@ -112,7 +113,7 @@ class _CustomSliderState extends State<CustomSlider> {
   SnackBar showMessage() {
     return SnackBar(
       content: Text(
-        'Measurement Saved!',
+        'confirm_message_saved'.i18n(),
         style: Theme.of(context).textTheme.bodyText2,
       ),
       backgroundColor: Theme.of(context).primaryColor,

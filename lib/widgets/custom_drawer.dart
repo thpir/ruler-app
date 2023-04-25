@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import './list_tile_ui.dart';
 import './list_tile_calibration.dart';
@@ -22,7 +23,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                'Ruler Settings',
+                'settings_title'.i18n(),
                 style: Theme.of(context).textTheme.headline6,
               )
             ],
@@ -35,7 +36,7 @@ class CustomDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Select your theme:',
+                  'select_theme_subtitle'.i18n(),
                   style: Theme.of(context).textTheme.bodyText1,
                   ),
               ),
@@ -43,7 +44,7 @@ class CustomDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Select unit:',
+                  'select_unit_subtitle'.i18n(),
                   style: Theme.of(context).textTheme.bodyText1,
                   ),
               ),
@@ -51,7 +52,7 @@ class CustomDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Ruler calibration:',
+                  'ruler_calibration_subtitle'.i18n(),
                   style: Theme.of(context).textTheme.bodyText1,
                   ),
               ),

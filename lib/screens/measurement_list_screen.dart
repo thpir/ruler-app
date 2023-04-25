@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:localization/localization.dart';
 
 import '../providers/database_provider.dart';
 
@@ -20,8 +21,8 @@ class _MeasurementListScreenState extends State<MeasurementListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Measurement History',
-            style: TextStyle(
+        title: Text('appbar_history_text'.i18n(),
+            style: const TextStyle(
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.bold,
                 fontSize: 20)),
@@ -39,7 +40,7 @@ class _MeasurementListScreenState extends State<MeasurementListScreen> {
                   return child ??
                       Center(
                         child: Text(
-                          'No measurements yet...',
+                          'no_measurements_text'.i18n(),
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       );

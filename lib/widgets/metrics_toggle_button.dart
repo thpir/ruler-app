@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:localization/localization.dart';
 
 import '../shared_prefs/metrics_preference.dart';
 import '../providers/metrics_provider.dart';
@@ -15,8 +16,8 @@ class _MetricsToggleButtonState extends State<MetricsToggleButton> {
   String metrics = '';
 
   final List<Widget> _metrics = <Widget>[
-    const Text('Millimeters'),
-    const Text('Inches'),
+    Text('millimeters'.i18n()),
+    Text('inches'.i18n()),
   ];
   final List<bool> _selectedMetrics = <bool>[
     true,
