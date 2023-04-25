@@ -120,43 +120,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-
-  /*
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => UiThemeProvider(),
-      child: Consumer<UiThemeProvider>(
-        builder: (context, uiMode, _) => ChangeNotifierProvider(
-          create: (_) => MetricsProvider(),
-          child: Consumer<MetricsProvider>(
-            builder: (context, metrics, _) => ChangeNotifierProvider(
-              create: (_) => CalibrationProvider(),
-              child: Consumer<CalibrationProvider>(
-                builder: (context, calibrationMode, _) => MaterialApp(
-                  title: 'Ruler',
-                    theme: themeProvider(uiMode.uiMode),
-                    darkTheme:
-                      uiMode.uiMode == 'ui' ? MyThemes.darkTheme : null,
-                    home: HomeScreen(
-                      title: 'Ruler',
-                      isMm: isMm(metrics.metrics),
-                      isDefaultCalibration: isDefaultCalibration(calibrationMode.calibrationMode),
-                      calibrationValue: calibrationMode.calibrationValue,
-                    ),
-                    routes: {
-                      CalibrationScreen.routeName: (ctx) =>
-                        const CalibrationScreen(),
-                      MeasurementListScreen.routeName:(context) => 
-                        const MeasurementListScreen(),
-                    },
-                ),  
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-  */
 }

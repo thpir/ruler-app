@@ -60,7 +60,6 @@ class _MetricsToggleButtonState extends State<MetricsToggleButton> {
       child: ToggleButtons(
         direction: Axis.horizontal,
         onPressed: (index) {
-          //MetricsPreference metricsPreference = MetricsPreference();
           setState(() {
             // The button that is tapped is set to true, and the other one to false
             for (int i = 0; i < _selectedMetrics.length; i++) {
@@ -69,9 +68,7 @@ class _MetricsToggleButtonState extends State<MetricsToggleButton> {
             for (int j = 0; j < _selectedMetrics.length; j++) {
               if (_selectedMetrics[j]) {
                 j == 0
-                    //? metricsPreference.setMetrics('mm')
                     ? metricsChange.metrics = 'mm'
-                    //: metricsPreference.setMetrics('in');
                     : metricsChange.metrics = 'in';
               }
             }

@@ -144,18 +144,15 @@ class _CustomSliderState extends State<CustomSlider> {
                 border: Border(
                   left: BorderSide(
                     width: 1,
-                    //color: Theme.of(context).colorScheme.onSurface,
                     color: Colors.amber,
                   ),
                 ),
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  //color: Theme.of(context).colorScheme.onSurface,
                   color: Colors.amber,
                   border: Border.all(
                     width: 1,
-                    //color: Theme.of(context).colorScheme.onSurface,
                     color: Colors.amber,
                   ),
                   borderRadius: const BorderRadius.only(
@@ -176,7 +173,6 @@ class _CustomSliderState extends State<CustomSlider> {
                               : '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(2)} inch',
                           style: const TextStyle(
                             fontSize: 20,
-                            //color: Theme.of(context).colorScheme.surface,
                             color: Colors.black,
                           ),
                         ),
@@ -215,7 +211,6 @@ class _CustomSliderState extends State<CustomSlider> {
                 border: Border(
                   top: BorderSide(
                     width: 1,
-                    //color: Theme.of(context).colorScheme.onSurface,
                     color: Colors.amber,
                   ),
                 ),
@@ -223,11 +218,9 @@ class _CustomSliderState extends State<CustomSlider> {
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
-                  //color: Theme.of(context).colorScheme.onSurface,
                   color: Colors.amber,
                   border: Border.all(
                     width: 1,
-                    //color: Theme.of(context).colorScheme.onSurface,
                     color: Colors.amber,
                   ),
                   borderRadius: const BorderRadius.only(
@@ -246,7 +239,6 @@ class _CustomSliderState extends State<CustomSlider> {
                             : '${(verticalValueListener.value * widget.availableHeightInMm).toStringAsFixed(2)} inch',
                         style: const TextStyle(
                           fontSize: 20,
-                          //color: Theme.of(context).colorScheme.surface,
                           color: Colors.black,
                         ),
                       ),

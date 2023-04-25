@@ -10,6 +10,7 @@ class DatabaseProvider with ChangeNotifier {
     return [..._items]; // Getter to return a COPY of the original _items list
   }
 
+  // Method to add a measurement to the database and update the list of measurements
   Future<void> addMeasurement(String measurement, String description) async {
     final newMeasurement = Measurement(
         id: DateTime.now().toString(),
@@ -24,12 +25,14 @@ class DatabaseProvider with ChangeNotifier {
     });
   }
 
+  // Method to delete a measurement from the database and update the list of measurements
   Future<void> deleteMeasurement(String id) async {
     _items.removeWhere((measurement) => measurement.id == id);
     notifyListeners();
     DBHelper.delete('measurements', id);
   }
 
+  // A method to display all the measurements that are saved to the database in a list
   Future<void> fetchMeasurements() async {
     final measurementsList = await DBHelper.getData('measurements');
     _items = measurementsList
