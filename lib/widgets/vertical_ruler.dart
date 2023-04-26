@@ -44,7 +44,7 @@ class VerticalRuler extends StatelessWidget {
     List<Container> verticalRulerPin(int count) {
       return List.generate(count, (index) {
         return Container(
-          height: pixelCountInMm,
+          height: index == 0 ? pixelCountInMm + 1 : pixelCountInMm,
           width: rulerPinWidth(index),
           decoration: BoxDecoration(
             border: Border(
@@ -90,7 +90,7 @@ class VerticalRuler extends StatelessWidget {
           const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
           Column(
             children:
-                verticalRulerDigits((numberOfVerticalRulerPins / (isMm ? 10 : 8)).floor()),
+                verticalRulerDigits(((isMm ? numberOfVerticalRulerPins - 2 :  numberOfVerticalRulerPins - 1)/ (isMm ? 10 : 8)).floor()),
           ),
         ],
       ),

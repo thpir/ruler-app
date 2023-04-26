@@ -149,6 +149,7 @@ class _CustomSliderState extends State<CustomSlider> {
                 ),
               ),
               child: Container(
+                margin: const EdgeInsets.only(bottom: 15),
                 decoration: BoxDecoration(
                   color: Colors.amber,
                   border: Border.all(
@@ -216,6 +217,7 @@ class _CustomSliderState extends State<CustomSlider> {
                 ),
               ),
               child: Container(
+                margin: const EdgeInsets.only(right: 15),
                 height: 50,
                 decoration: BoxDecoration(
                   color: Colors.amber,

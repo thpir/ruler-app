@@ -44,7 +44,7 @@ class HorizontalRuler extends StatelessWidget {
     List<Container> horizontalRulerPin(int count) {
       return List.generate(count, (index) {
         return Container(
-          width: pixelCountInMm,
+          width: index == 0 ? pixelCountInMm + 1 : pixelCountInMm,
           height: rulerPinWidth(index),
           decoration: BoxDecoration(
             border: Border(
@@ -61,15 +61,20 @@ class HorizontalRuler extends StatelessWidget {
       return List.generate(count, (index) {
         return SizedBox(
           width: isMm 
-            ? (index == 0 ? pixelCountInMm * 11 : pixelCountInMm * 10) 
+            ? (index == 0 ? pixelCountInMm * 12 : pixelCountInMm * 10) 
             : (index == 0 ? pixelCountInMm * 8.4 : pixelCountInMm * 8),
           child: Align(
               alignment: Alignment.bottomRight,
-              child: Text(
-                (index + 1).toString(),
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Theme.of(context).focusColor,
+              child: Padding(
+                padding: isMm 
+                  ? (index < 9 ? const EdgeInsets.only(right: 4.0) : const EdgeInsets.only(right: 0.0)) 
+                  : const EdgeInsets.only(right : 0.0),
+                child: Text(
+                  (index + 1).toString(),
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Theme.of(context).focusColor,
+                  ),
                 ),
               )),
         );
@@ -87,7 +92,7 @@ class HorizontalRuler extends StatelessWidget {
           const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
           Row(
             children: horizontalRulerDigits(
-                (numberOfHorizontalRulerPins / (isMm ? 10 : 8)).floor()),
+                ((isMm ? numberOfHorizontalRulerPins - 2 :  numberOfHorizontalRulerPins - 1) / (isMm ? 10 : 8)).floor()),
           ),
         ],
       ),

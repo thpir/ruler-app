@@ -80,6 +80,7 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
           'appbar_calibration_text'.i18n(),
           style: const TextStyle(fontFamily: 'Roboto', fontWeight: FontWeight.bold,fontSize: 20)
         ),
+        elevation: 0,
         actions: <Widget>[
           IconButton(
             onPressed: () {
@@ -103,7 +104,8 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
           ),
         ],
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.only(top: 0),
         child: GestureDetector(
           onVerticalDragUpdate: (DragUpdateDetails details) {
             setState(() {
@@ -119,11 +121,6 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.swipe_up,
-                          color: Theme.of(context).focusColor,
-                          size: 50,
-                        ),
                         const SizedBox(
                           height: 20,
                         ),
