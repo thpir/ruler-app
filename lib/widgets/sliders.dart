@@ -170,7 +170,7 @@ class _CustomSliderState extends State<CustomSlider> {
                       children: [
                         Text(
                           widget.isMm
-                              ? '${(horizontalValueListener.value * widget.availableWidthInMm + 0.2).toStringAsFixed(1)} mm'
+                              ? '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(1)} mm'
                               : '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(2)} inch',
                           style: const TextStyle(
                             fontSize: 20,
@@ -180,7 +180,7 @@ class _CustomSliderState extends State<CustomSlider> {
                         IconButton(
                             onPressed: (() {
                               savedValue = widget.isMm
-                                  ? '${(horizontalValueListener.value * widget.availableWidthInMm + 0.2).toStringAsFixed(1)} mm'
+                                  ? '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(1)} mm'
                                   : '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(2)} inch';
                               _addItem();
                             }),
@@ -237,7 +237,7 @@ class _CustomSliderState extends State<CustomSlider> {
                     children: [
                       Text(
                         widget.isMm
-                            ? '${(verticalValueListener.value * widget.availableHeightInMm + 0.2).toStringAsFixed(1)} mm'
+                            ? '${(verticalValueListener.value * widget.availableHeightInMm).toStringAsFixed(1)} mm'
                             : '${(verticalValueListener.value * widget.availableHeightInMm).toStringAsFixed(2)} inch',
                         style: const TextStyle(
                           fontSize: 20,
@@ -247,7 +247,7 @@ class _CustomSliderState extends State<CustomSlider> {
                       IconButton(
                             onPressed: (() {
                               savedValue = widget.isMm
-                                ? '${(verticalValueListener.value * widget.availableHeightInMm + 0.2).toStringAsFixed(1)} mm'
+                                ? '${(verticalValueListener.value * widget.availableHeightInMm).toStringAsFixed(1)} mm'
                                 : '${(verticalValueListener.value * widget.availableHeightInMm).toStringAsFixed(2)} inch';
                               _addItem();
                             }),
