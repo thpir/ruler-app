@@ -41,7 +41,7 @@ class _ListTileCalibrationState extends State<ListTileCalibration> {
             activeColor: Colors.amber,
             title: Text(
               'calibration_default'.i18n(),
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             value: 'default',
             groupValue: calibrationMode,
@@ -55,7 +55,7 @@ class _ListTileCalibrationState extends State<ListTileCalibration> {
             activeColor: Colors.amber,
             title: Text(
               'calibration_custom'.i18n(),
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             value: 'custom',
             groupValue: calibrationMode,

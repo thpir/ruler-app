@@ -24,6 +24,9 @@
     "about_text_3": "Creado por:",
     "button_text_buy_coffee": "Comprar Cafe",
     "button_text_close": "Cerca",
+    "edit_title": "Editar etiqueta",
+    "button_text_cancel": "Cancelar",
+    "button_text_save": "Ahorrar",
     "error_message_calibration": ". Recomendamos utilizar una calibración personalizada...",
     "no_measurements_text": "Aún no hay medidas...",
     "confirm_message_saved": "¡Medida guardada!"

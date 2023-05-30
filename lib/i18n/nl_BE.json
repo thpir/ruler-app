@@ -24,6 +24,9 @@
     "about_text_3": "Gemaakt door:",
     "button_text_buy_coffee": "Koffie Kopen",
     "button_text_close": "Sluiten",
+    "edit_title": "Label wijzigen",
+    "button_text_cancel": "Annuleer",
+    "button_text_save": "Opslaan",
     "error_message_calibration": ". Wij adviseren om een aangepaste kalibratie te gebruiken...",
     "no_measurements_text": "Nog geen metingen...",
     "confirm_message_saved": "Meting opgeslagen!"

@@ -112,7 +112,8 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           routes: {
-            CalibrationScreen.routeName: (ctx) => const CalibrationScreen(),
+            CalibrationScreen.routeName: (ctx) =>
+                const CalibrationScreen(),
             MeasurementListScreen.routeName: (context) =>
                 const MeasurementListScreen(),
           },

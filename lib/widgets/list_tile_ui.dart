@@ -39,7 +39,7 @@ class _ListTileUiState extends State<ListTileUi> {
             activeColor: Colors.amber,
             title: Text(
               'theme_ui'.i18n(),
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             value: 'ui',
             groupValue: uiMode,
@@ -53,7 +53,7 @@ class _ListTileUiState extends State<ListTileUi> {
             activeColor: Colors.amber,
             title: Text(
               'theme_dark'.i18n(),
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             value: 'dark',
             groupValue: uiMode,
@@ -67,7 +67,7 @@ class _ListTileUiState extends State<ListTileUi> {
             activeColor: Colors.amber,
             title: Text(
               'theme_light'.i18n(),
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             value: 'light',
             groupValue: uiMode,
@@ -76,7 +76,9 @@ class _ListTileUiState extends State<ListTileUi> {
                 uiMode = value.toString();
               });
               themeChange.uiMode = value.toString();
-            })),
+            }
+          ),
+        ),
       ],
     );
   }

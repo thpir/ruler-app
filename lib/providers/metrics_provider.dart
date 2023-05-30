@@ -9,6 +9,8 @@ class MetricsProvider extends ChangeNotifier {
   MetricsPreference metricsPreference = MetricsPreference();
   String _metrics = 'mm';
 
+  // Constructor to retrieve the preferred metric choice previously selected
+  // by the user.
   MetricsProvider() {
     metricsPreference.getMetrics().then((value) {
       _metrics = value;
@@ -16,8 +18,10 @@ class MetricsProvider extends ChangeNotifier {
     });
   }
 
+  // Getter to retrieve the metrics.
   String get metrics => _metrics;
 
+  // Setter to save the newly selected metrics.
   set metrics(String newValue) {
     _metrics = newValue;
     metricsPreference.setMetrics(newValue);

@@ -19,6 +19,7 @@ class _MetricsToggleButtonState extends State<MetricsToggleButton> {
     Text('millimeters'.i18n()),
     Text('inches'.i18n()),
   ];
+
   final List<bool> _selectedMetrics = <bool>[
     true,
     false,

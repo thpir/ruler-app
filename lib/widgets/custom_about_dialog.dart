@@ -52,7 +52,7 @@ class CustomAboutDialog {
           },
           label: Text(
             'button_text_buy_coffee'.i18n(),
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
           icon: Icon(
             Icons.coffee_sharp,
@@ -65,7 +65,7 @@ class CustomAboutDialog {
           },
           label: Text(
             'button_text_close'.i18n(),
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
           icon: Icon(
             Icons.close,

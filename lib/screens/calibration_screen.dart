@@ -20,6 +20,7 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
   @override
   void initState() {
     super.initState();
+    // Retrieve the saved metrics from shared preferences
     getMetrics().then((value) {
       setState(() {
         metrics = value.toString();
@@ -37,8 +38,8 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
     final calibrationChange = Provider.of<CalibrationProvider>(context);
 
     // rulerPinWidth method returns the size of the ruler pin. If the ruler pin is a
-    //full cm/inch that pin will have to be larger that a ruler pin indicating
-    //a value in between two centimeters/inches
+    // full cm/inch that pin will have to be larger that a ruler pin indicating
+    // a value in between two centimeters/inches.
     double rulerPinWidth(int index) {
       if (metrics == 'mm') {
         if ((index + 1) % 10 == 0) {
@@ -57,6 +58,11 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
       }
     }
 
+    // This method builds the ruler that we render on the screen. The ruler
+    // basically consists of containers with a height that matches one mm or
+    // inch on the screen. Now that we are in calibrating mode, this won't be
+    // an actual mm. The ruler will be resizable to match exactly 5 cm or 2
+    // inches.
     List<Container> verticalRulerPin(int count) {
       return List.generate(count, (index) {
         return Container(
@@ -113,58 +119,59 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
             });
           },
           child: Container(
-              color: Theme.of(context).backgroundColor,
-              height: _height,
-              child: Stack(
-                children: [
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          height: 20,
+            color: Theme.of(context).backgroundColor,
+            height: _height,
+            child: Stack(
+              children: [
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 70.0),
+                        child: Text(
+                          metrics == 'mm'
+                              ? 'calibration_explanation_text_mm'.i18n()
+                              : 'calibration_explanation_text_inch'.i18n(),
+                          style: Theme.of(context).textTheme.headline6,
+                          textAlign: TextAlign.center,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 70.0),
-                          child: Text(
-                            metrics == 'mm'
-                                ? 'calibration_explanation_text_mm'.i18n()
-                                : 'calibration_explanation_text_inch'.i18n(),
-                            style: Theme.of(context).textTheme.headline6,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Icon(
-                          Icons.swipe_down,
-                          color: Theme.of(context).focusColor,
-                          size: 50,
-                        ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Icon(
+                        Icons.swipe_down,
+                        color: Theme.of(context).focusColor,
+                        size: 50,
+                      ),
+                    ],
                   ),
-                  Container(
-                    height: metrics == 'mm' ? (_height / 50) : (_height / 16),
-                    width: 40,
-                    decoration: BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
-                          width: 1,
-                          color: Theme.of(context).focusColor,
-                        ),
+                ),
+                Container(
+                  height: metrics == 'mm' ? (_height / 50) : (_height / 16),
+                  width: 40,
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        width: 1,
+                        color: Theme.of(context).focusColor,
                       ),
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: metrics == 'mm'
-                        ? verticalRulerPin(50)
-                        : verticalRulerPin(16),
-                  ),
-                ],
-              )),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: metrics == 'mm'
+                      ? verticalRulerPin(50)
+                      : verticalRulerPin(16),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -24,6 +24,9 @@
     "about_text_3": "Created by:",
     "button_text_buy_coffee": "Buy Coffee",
     "button_text_close": "Close",
+    "edit_title": "Edit label",
+    "button_text_cancel": "Cancel",
+    "button_text_save": "Save",
     "error_message_calibration": ". We advice to use a custom calibration...",
     "no_measurements_text": "No measurements yet...",
     "confirm_message_saved": "Measurement Saved!"

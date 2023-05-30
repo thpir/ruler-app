@@ -16,13 +16,18 @@ class DBHelper {
     db.insert(table, data, conflictAlgorithm: sql.ConflictAlgorithm.replace);
   }
 
-  static Future<List<Map<String, dynamic>>> getData(String table) async {
+  static Future<void> update(String table, String id, String description) async {
     final db = await DBHelper.database();
-    return db.query(table);
+    db.update(table, {'description': description}, where: 'id = ?', whereArgs: [id]);
   }
 
   static Future<void> delete(String table, String id) async {
     final db = await DBHelper.database();
     db.delete(table, where: 'id = ?', whereArgs: [id]);
+  }
+
+  static Future<List<Map<String, dynamic>>> getData(String table) async {
+    final db = await DBHelper.database();
+    return db.query(table);
   }
 }

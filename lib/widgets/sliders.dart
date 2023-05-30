@@ -87,18 +87,21 @@ class _CustomSliderState extends State<CustomSlider> {
     verticalValueListener.addListener(notifyParentForVerticalMovement);
   }
 
+  // Triggered when the horizontal slider has moved.
   void notifyParentForHorizontalMovement() {
     if (widget.valueChangedHorizontally != null) {
       widget.valueChangedHorizontally!(horizontalValueListener.value);
     }
   }
 
+  // Triggered when the vertical slider has moved.
   void notifyParentForVerticalMovement() {
     if (widget.valueChangedVertically != null) {
       widget.valueChangedVertically!(verticalValueListener.value);
     }
   }
 
+  // Save measured value to the database.
   void _addItem() {
     var now = DateTime.now();
     var formatter = DateFormat('EEEE, MMMM d, y');
@@ -110,11 +113,12 @@ class _CustomSliderState extends State<CustomSlider> {
           .showSnackBar(showMessage());
   }
 
+  // Show a snackBar when the value is saved successfully.
   SnackBar showMessage() {
     return SnackBar(
       content: Text(
         'confirm_message_saved'.i18n(),
-        style: Theme.of(context).textTheme.bodyText2,
+        style: Theme.of(context).textTheme.bodyMedium,
       ),
       backgroundColor: Theme.of(context).primaryColor,
     );
@@ -178,16 +182,17 @@ class _CustomSliderState extends State<CustomSlider> {
                           ),
                         ),
                         IconButton(
-                            onPressed: (() {
-                              savedValue = widget.isMm
+                          onPressed: (() {
+                            savedValue = widget.isMm
                                   ? '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(1)} mm'
                                   : '${(horizontalValueListener.value * widget.availableWidthInMm).toStringAsFixed(2)} inch';
-                              _addItem();
-                            }),
-                            icon: const Icon(
-                              Icons.save,
-                              color: Colors.black,
-                            )),
+                            _addItem();
+                          }),
+                          icon: const Icon(
+                            Icons.save,
+                            color: Colors.black,
+                          ),
+                        ),
                       ],
                     ),
                   ),
