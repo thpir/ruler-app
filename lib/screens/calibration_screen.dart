@@ -119,7 +119,7 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
             });
           },
           child: Container(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).colorScheme.surface,
             height: _height,
             child: Stack(
               children: [
@@ -136,7 +136,7 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
                           metrics == 'mm'
                               ? 'calibration_explanation_text_mm'.i18n()
                               : 'calibration_explanation_text_inch'.i18n(),
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.titleLarge,
                           textAlign: TextAlign.center,
                         ),
                       ),

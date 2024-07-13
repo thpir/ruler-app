@@ -56,7 +56,6 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     // set json file directory for languages
