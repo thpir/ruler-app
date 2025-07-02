@@ -14,22 +14,12 @@ import '../widgets/sliders.dart';
 import '../widgets/ruler_origin.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_about_dialog.dart';
-//import '../../services/calibration_preference.dart';
 import 'measurement_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
     super.key,
-    // required this.title,
-    // required this.isMm,
-    // required this.isDefaultCalibration,
-    // required this.calibrationValue,
   });
-
-  // final String title;
-  // final bool isMm;
-  // final bool isDefaultCalibration;
-  // final double calibrationValue;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -40,10 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
   String errorMessage = '';
   static const platform = MethodChannel('thpir/dpi');
 
-  // This method will use platform specific code to try to retrieve the phone's
-  // DPI from the Android OS. Normally every android phone should allow the app
-  // to access this. In case it doesn't work for some reason, we will use a
-  // default value and notify the user to advice him to calibrate the ruler.
+  /// This method will use platform specific code to try to retrieve the phone's
+  /// DPI from the Android OS. Normally every android phone should allow the app
+  /// to access this. In case it doesn't work for some reason, we will use a
+  /// default value and notify the user to advice him to calibrate the ruler.
   Future<void> _getPhoneDpi() async {
     double dpi;
     try {
@@ -52,11 +42,17 @@ class _HomeScreenState extends State<HomeScreen> {
     } on PlatformException catch (e) {
       dpi = 160;
       errorMessage = e.toString();
+      if (!mounted) {
+        return;
+      }
       ScaffoldMessenger.of(context)
           .showSnackBar(showErrorMessage(errorMessage));
     } catch (e) {
       dpi = 160;
       errorMessage = e.toString();
+      if (!mounted) {
+        return;
+      }
       ScaffoldMessenger.of(context)
           .showSnackBar(showErrorMessage(errorMessage));
     }
@@ -65,7 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  // SnackBar to display the error message on the screen.
   SnackBar showErrorMessage(String message) {
     return SnackBar(
       content: Text(
@@ -76,14 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Method to retrieve the custom calibration value from the shared preferences
-  // in case we already did a custom calibration.
-  // Future<double> getCalibrationValue() async {
-  //   CalibrationPreference calibrationPreference = CalibrationPreference();
-  //   return calibrationPreference.getCalibrationValue();
-  // }
-
-  // Method to display the about dialog with information about me and the app.
   Future<void> _showAboutDialog() async {
     return showDialog(
         context: context,

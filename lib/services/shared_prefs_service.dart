@@ -3,7 +3,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefsService {
-  /// Static variable to hold the single instance of the class
   static SharedPrefsService? _instance; 
   static SharedPreferences? _preferences;
   

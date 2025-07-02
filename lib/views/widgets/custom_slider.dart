@@ -54,7 +54,6 @@ class _CustomSliderState extends State<CustomSlider> {
     }
   }
 
-  // Save measured value to the database.
   void _addItem() {
     var now = DateTime.now();
     var formatter = DateFormat('EEEE, MMMM d, y');
@@ -64,7 +63,6 @@ class _CustomSliderState extends State<CustomSlider> {
     ScaffoldMessenger.of(context).showSnackBar(showMessage());
   }
 
-  // Show a snackBar when the value is saved successfully.
   SnackBar showMessage() {
     return SnackBar(
       content: Text(

@@ -14,9 +14,9 @@ class VerticalRuler extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // rulerPinWidth method returns the size of the ruler pin. If the ruler pin is a
-    //full cm/inch that pin will have to be larger that a ruler pin indicating
-    //a value in between two centimeters/inches
+    /// rulerPinWidth method returns the size of the ruler pin. If the ruler pin is a
+    /// full cm/inch that pin will have to be larger that a ruler pin indicating
+    /// a value in between two centimeters/inches
     double rulerPinWidth(int index) {
       if (isMm) {
         if (index < 9) {
@@ -39,8 +39,8 @@ class VerticalRuler extends StatelessWidget {
       }
     }
 
-    // This method returns a list of ruler pins that are rendered across the
-    //vertical axis of the phone screen
+    /// This method returns a list of ruler pins that are rendered across the
+    /// vertical axis of the phone screen
     List<Container> verticalRulerPin(int count) {
       return List.generate(count, (index) {
         return Container(
@@ -58,8 +58,8 @@ class VerticalRuler extends StatelessWidget {
       }).toList();
     }
 
-    // This method returns a list of digits that acompany the ruler pins
-    //rendered along the vertical axis of the phone
+    /// This method returns a list of digits that acompany the ruler pins
+    /// rendered along the vertical axis of the phone
     List<SizedBox> verticalRulerDigits(int count) {
       return List.generate(count, (index) {
         return SizedBox(

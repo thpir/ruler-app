@@ -1,0 +1,2 @@
+/Users/thijspirmez/Documents/Prive/Thpir_Development/Projects/Ruler App/android/app/.cxx/RelWithDebInfo/545s6n1t/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/thijspirmez/Documents/Prive/Thpir_Development/Projects/Ruler App/android/app/.cxx/RelWithDebInfo/545s6n1t/armeabi-v7a/CMakeFiles/rebuild_cache.dir

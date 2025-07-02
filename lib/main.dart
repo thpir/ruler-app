@@ -28,10 +28,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  //UiModeController uiModeController = UiModeController();
-  //MetricsController metricsController = MetricsController();
-  //CalibrationProvider calibrationController = CalibrationProvider();
-
   @override
   Widget build(BuildContext context) {
     ThemeData themeProvider(String value) {
@@ -41,22 +37,6 @@ class _MyAppState extends State<MyApp> {
         return AppTheme.lightTheme;
       }
     }
-
-    // bool isMm(String value) {
-    //   if (value == 'mm') {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // }
-
-    // bool isDefaultCalibration(String value) {
-    //   if (value == 'default') {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // }
 
     // set json file directory for languages
     LocalJsonLocalization.delegate.directories = ['lib/i18n'];
@@ -103,17 +83,9 @@ class _MyAppState extends State<MyApp> {
             return const Locale('en', 'US');
           },
           home: const HomeScreen(),
-          // home: Consumer2<MetricsController, CalibrationProvider>(
-          //   builder: (context, metricsController, calibrationController, _) => HomeScreen(
-          //     title: 'app_name'.i18n(),
-          //     isMm: isMm(metricsController.metrics),
-          //     isDefaultCalibration:
-          //         isDefaultCalibration(calibrationController.calibrationMode),
-          //     calibrationValue: calibrationController.calibrationValue,
-          //   ),
-          // ),
           routes: {
-            CalibrationScreen.routeName: (ctx) => const CalibrationScreen(),
+            CalibrationScreen.routeName: (ctx) => 
+                const CalibrationScreen(),
             MeasurementListScreen.routeName: (context) =>
                 const MeasurementListScreen(),
           },

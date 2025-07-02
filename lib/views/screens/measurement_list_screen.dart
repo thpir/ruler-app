@@ -29,13 +29,11 @@ class _MeasurementListScreenState extends State<MeasurementListScreen> {
     super.dispose();
   }
 
-  // Delete an item from the measurements database.
   void _deleteItem(String id) {
     Provider.of<MeasurementController>(context, listen: false)
         .deleteMeasurement(id);
   }
 
-  // Edit the label of one of the values in the database.
   void _editItem(Measurement measurement) {
     showDialog<String>(
       context: context,

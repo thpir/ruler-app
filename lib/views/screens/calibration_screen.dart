@@ -19,9 +19,9 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // rulerPinWidth method returns the size of the ruler pin. If the ruler pin is a
-    // full cm/inch that pin will have to be larger that a ruler pin indicating
-    // a value in between two centimeters/inches.
+    /// rulerPinWidth method returns the size of the ruler pin. If the ruler pin is a
+    /// full cm/inch that pin will have to be larger that a ruler pin indicating
+    /// a value in between two centimeters/inches.
     double rulerPinWidth(int index, String metrics) {
       if (metrics == 'mm') {
         if ((index + 1) % 10 == 0) {
@@ -40,11 +40,11 @@ class _CalibrationScreenState extends State<CalibrationScreen> {
       }
     }
 
-    // This method builds the ruler that we render on the screen. The ruler
-    // basically consists of containers with a height that matches one mm or
-    // inch on the screen. Now that we are in calibrating mode, this won't be
-    // an actual mm. The ruler will be resizable to match exactly 5 cm or 2
-    // inches.
+    /// This method builds the ruler that we render on the screen. The ruler
+    /// basically consists of containers with a height that matches one mm or
+    /// inch on the screen. Now that we are in calibrating mode, this won't be
+    /// an actual mm. The ruler will be resizable to match exactly 5 cm or 2
+    /// inches.
     List<Container> verticalRulerPin(int count, String metrics) {
       return List.generate(count, (index) {
         return Container(
