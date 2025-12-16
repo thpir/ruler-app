@@ -15,43 +15,36 @@ class _ListTileUiState extends State<ListTileUi> {
   Widget build(BuildContext context) {
     return Consumer<UiModeController>(
       builder: (context, controller, child) {
-        return Column(
-          children: <Widget>[
-            RadioListTile(
+        return RadioGroup(
+          groupValue: controller.uiMode,onChanged: (value) async {
+                    controller.uiMode = value.toString();
+                  },
+          child: Column(
+            children: <Widget>[
+              RadioListTile(
+                  activeColor: Colors.amber,
+                  title: Text(
+                    'theme_ui'.i18n(),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  value: 'ui',),
+              RadioListTile(
+                  activeColor: Colors.amber,
+                  title: Text(
+                    'theme_dark'.i18n(),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  value: 'dark',),
+              RadioListTile(
                 activeColor: Colors.amber,
                 title: Text(
-                  'theme_ui'.i18n(),
+                  'theme_light'.i18n(),
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                value: 'ui',
-                groupValue: controller.uiMode,
-                onChanged: ((value) async {
-                  controller.uiMode = value.toString();
-                })),
-            RadioListTile(
-                activeColor: Colors.amber,
-                title: Text(
-                  'theme_dark'.i18n(),
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                value: 'dark',
-                groupValue: controller.uiMode,
-                onChanged: ((value) async {
-                  controller.uiMode = value.toString();
-                })),
-            RadioListTile(
-              activeColor: Colors.amber,
-              title: Text(
-                'theme_light'.i18n(),
-                style: Theme.of(context).textTheme.bodyMedium,
+                value: 'light',
               ),
-              value: 'light',
-              groupValue: controller.uiMode,
-              onChanged: ((value) async {
-                controller.uiMode = value.toString();
-              }),
-            ),
-          ],
+            ],
+          ),
         );
       }
     );

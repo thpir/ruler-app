@@ -13,7 +13,7 @@ import '../widgets/horizontal_ruler.dart';
 import '../widgets/sliders.dart';
 import '../widgets/ruler_origin.dart';
 import '../widgets/custom_drawer.dart';
-import '../widgets/custom_about_dialog.dart';
+// import '../widgets/custom_about_dialog.dart';
 import 'measurement_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -71,15 +71,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<void> _showAboutDialog() async {
-    return showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (BuildContext context) {
-          CustomAboutDialog customAboutDialog = CustomAboutDialog();
-          return customAboutDialog.getDialog(context);
-        });
-  }
+  // Future<void> _showAboutDialog() async {
+  //   return showDialog(
+  //       context: context,
+  //       barrierDismissible: true,
+  //       builder: (BuildContext context) {
+  //         CustomAboutDialog customAboutDialog = CustomAboutDialog();
+  //         return customAboutDialog.getDialog(context);
+  //       });
+  // }
 
   @override
   void initState() {
@@ -156,10 +156,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 Icons.history_sharp,
               ),
             ),
-            IconButton(
-              onPressed: _showAboutDialog,
-              icon: const Icon(Icons.info_outline),
-            ),
+            // IconButton(
+            //   onPressed: _showAboutDialog,
+            //   icon: const Icon(Icons.info_outline),
+            // ),
           ],
         ),
         body: Stack(

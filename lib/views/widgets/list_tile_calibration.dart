@@ -4,7 +4,6 @@ import 'package:localization/localization.dart';
 import 'package:ruler_app/controllers/calibration_controller.dart';
 import 'package:ruler_app/views/screens/calibration_screen.dart';
 
-
 class ListTileCalibration extends StatelessWidget {
   const ListTileCalibration({super.key});
 
@@ -14,28 +13,33 @@ class ListTileCalibration extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        RadioListTile(
-            activeColor: Colors.amber,
-            title: Text(
-              'calibration_default'.i18n(),
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            value: 'default',
+        RadioGroup(
             groupValue: calibrationChange.calibrationMode,
-            onChanged: ((value) async {
+            onChanged: (value) async {
               calibrationChange.setCalibrationMode(value.toString());
-            })),
-        RadioListTile(
-            activeColor: Colors.amber,
-            title: Text(
-              'calibration_custom'.i18n(),
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            value: 'custom',
-            groupValue: calibrationChange.calibrationMode,
-            onChanged: ((value) async {
-              calibrationChange.setCalibrationMode(value.toString());
-            })),
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RadioListTile(
+                  activeColor: Colors.amber,
+                  title: Text(
+                    'calibration_default'.i18n(),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  value: 'default',
+                ),
+                RadioListTile(
+                  activeColor: Colors.amber,
+                  title: Text(
+                    'calibration_custom'.i18n(),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  value: 'custom',
+                ),
+              ],
+            )),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: FilledButton(
